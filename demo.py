@@ -1,3 +1,4 @@
+#Updated to work with Tensorlow 2.0 and Python 3.8
 import os
 import logging
 

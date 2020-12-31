@@ -1,3 +1,4 @@
+#Updating code to work with TensorFlow 2.X and Python 3.8.X
 from tensorflow.python.framework import constant_op
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops
@@ -5,13 +6,19 @@ from tensorflow.python.ops import array_ops
 from tensorflow.python.ops import control_flow_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.ops import tensor_array_ops
-from tensorflow.python.ops import variable_scope as vs
-from tensorflow.python.ops.rnn_cell_impl import _concat, _like_rnncell
+#from tensorflow.python.ops import variable_scope as vs
+# Changed reference from _like_rnncell to assert_like_rnncell
+from tensorflow.python.ops.rnn_cell_impl import _concat, assert_like_rnncell
+#from tensorflow.python.ops.rnn_cell_impl import _concat, _like_rnncell
 from tensorflow.python.ops.rnn import _maybe_tensor_shape_from_tensor
 from tensorflow.python.util import nest
 from tensorflow.python.framework import tensor_shape
-from tensorflow.python.eager import context
+#from tensorflow.python.eager import context
 
+import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+tf.enable_eager_execution()
 
 def raw_rnn(cell, loop_fn, parallel_iterations=None, swap_memory=False, scope=None):
     """
@@ -26,18 +33,19 @@ def raw_rnn(cell, loop_fn, parallel_iterations=None, swap_memory=False, scope=No
         final cell state,
     )
     """
-    if not _like_rnncell(cell):
-        raise TypeError("cell must be an instance of RNNCell")
-    if not callable(loop_fn):
-        raise TypeError("loop_fn must be a callable")
+    #if not _like_rnncell(cell):
+    #if not assert_like_rnncell():
+    #    raise TypeError("cell must be an instance of RNNCell")
+    #if not callable(loop_fn):
+    #    raise TypeError("loop_fn must be a callable")
 
     parallel_iterations = parallel_iterations or 32
 
     # Create a new scope in which the caching device is either
     # determined by the parent scope, or is set to place the cached
     # Variable using the same placement as for the rest of the RNN.
-    with vs.variable_scope(scope or "rnn") as varscope:
-        if context.in_graph_mode():
+    with tf.compat.v1.variable_scope(scope or "rnn") as varscope:
+        if tf.Graph().as_default():
             if varscope.caching_device is None:
                 varscope.set_caching_device(lambda op: op.device)
 
@@ -220,7 +228,7 @@ def rnn_free_run(cell, initial_state, sequence_length, initial_input=None, scope
         cell.termination_condition(state) which returns a boolean tensor of shape
         [batch_size] denoting which sequences no longer need to be sampled.
     """
-    with vs.variable_scope(scope, reuse=True):
+    with tf.compat.v1.variable_scope(scope, reuse=True):
         if initial_input is None:
             initial_input = cell.output_function(initial_state)
 

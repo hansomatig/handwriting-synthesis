@@ -2,7 +2,8 @@
 # Handwriting Synthesis
 Implementation of the handwriting synthesis experiments in the paper <a href="https://arxiv.org/abs/1308.0850">Generating Sequences with Recurrent Neural Networks</a> by Alex Graves.  The implementation closely follows the original paper, with a few slight deviations, and the generated samples are of similar quality to those presented in the paper.
 
-Web demo is available <a href="https://seanvasquez.com/handwriting-generation/">here</a>.
+Web demo for TF version 1.X is available here <a href="https://seanvasquez.com/handwriting-generation/">here</a>.
+Web demo for updated TF2 is not published yet.
 
 ## Usage
 ```python
@@ -55,7 +56,16 @@ The following samples were generated with a fixed style and varying bias.  Each 
 ![](img/give_up.svg)
 
 ## Contribute
-This project was intended to serve as a reference implementation for a research paper, but since the results are of decent quality, it may be worthwile to make the project more broadly usable.  I plan to continue focusing on the machine learning side of things.  That said, I'd welcome contributors who can:
+Author:
+Sean Vasquez (sjvasquez)
+
+This project was intended to serve as a reference implementation for a research paper, but since the results are of decent quality, it may be worth wile to make the project more broadly usable.  I plan to continue focusing on the machine learning side of things.  That said, I'd welcome contributors who can:
 
   - Package this, and otherwise make it look more like a usable software project and less like research code.
   - Add support for more sophisticated drawing, animations, or anything else in this direction.  Currently, the project only creates some simple svg files.
+
+Contributors:
+Sridhar Kamma (dharai)
+  - Upgraded scripts to work with Python 3.8.x and TensorFlow 2.4.0
+
+<Additional Contributors - Please add your info below)

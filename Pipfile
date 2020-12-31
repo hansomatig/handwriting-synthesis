@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+matplotlib = ">=3.3.3"
+pandas = ">=1.2.0"
+scikit-learn = ">=0.24.0"
+scipy = ">=1.5.4"
+svgwrite = ">=1.4"
+tensorflow = "==2.5.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
